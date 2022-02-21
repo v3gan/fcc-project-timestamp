@@ -20,24 +20,24 @@ app.get("/", function (req, res) {
 });
 
 app.get('/api', (req, res) => {  
-  res.json({unix: new Date().getTime(), utc: new Date()});
+  res.json({unix: new Date().getTime(), utc: new Date().toUTCString()});
 });
 
 app.get('/api/:date', (req, res) => {
   let input = req.params.date;
+  
   let inputNum = parseInt(input);
   let date;
-  if (!inputNum) {
-    date = new Date(input)
+  if (input.includes('-')) {
+    date = new Date(input);
   } else {
-    date = new Date(inputNum);
+    date = new Date(parseInt(input));
   }
-
   if (date == 'Invalid Date'){
     res.json({error: 'Invalid Date'})
   } 
   else {
-    res.json({unix: date.getTime(), utc: date});
+    res.json({unix: date.getTime(), utc: date.toUTCString()});
   }
 });
 

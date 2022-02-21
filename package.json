@@ -4,7 +4,7 @@
 	"description": "An FCC Backend Challenge",
 	"main": "server.js",
 	"scripts": {
-		"start": "node server.js"
+		"start": "SET DEBUG=fcc-project-timestamp:* & node server.js"
 	},
 	"dependencies": {
 		"express": "^4.12.4",
