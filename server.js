@@ -24,21 +24,26 @@ app.get('/api', (req, res) => {
 });
 
 app.get('/api/:date', (req, res) => {
-  let input = req.params.date;
-  
-  let inputNum = parseInt(input);
-  let date;
-  if (input.includes('-')) {
-    date = new Date(input);
-  } else {
-    date = new Date(parseInt(input));
-  }
+  const input = req.params.date;
+  let response;
+
+  let date = new Date(input);
+
   if (date == 'Invalid Date'){
-    res.json({error: 'Invalid Date'})
-  } 
-  else {
-    res.json({unix: date.getTime(), utc: date.toUTCString()});
+    date = new Date(parseInt(input));
+    if (date == 'Invalid Date') {
+      response = {error: 'Invalid Date'};
+    } 
+    else {
+      response = {unix: date.getTime(), utc: date.toUTCString()};
+    }
   }
+  else {
+    response = {unix: date.getTime(), utc: date.toUTCString()};
+  }
+
+  res.json(response);
+
 });
 
 // listen local
